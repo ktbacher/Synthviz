@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+	<head>
+        <meta charset="UTF-8">
+		<title>SynthViz</title>
+        <link href='http://fonts.googleapis.com/css?family=Alike' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <script src="https://d3js.org/d3.v5.js"></script> 
+        <!-- Leap -->
+        <script type="text/javascript" src="lib/leap.min.js"></script>
+        <script type="text/javascript" src="lib/leap-plugins.min.js"></script>
+        
+        <!-- Underscore/Backbone -->
+        <!-- <script type="text/javascript" src="lib/underscore.min.js"></script>
+        <script type="text/javascript" src="lib/backbone.min.js"></script> -->
+
+        <script src="pitchdetect.js"></script>
+        <script src="index.js"></script>
+        <script src="audiosynth.js"></script>
+        <script src="playKeyboard.js"></script>
+        <script src="leapfuncs.js"></script>
+	</head>
+	<body>
+        
+
+		<div class="page">
+            <div class="heading">
+                <h1>SynthViz</h1>
+                <p>Ever wonder what it would be like to see music?  Start recording then make some noise! </p>
+            </div>
+            <div class="top">
+                <div class="visContainer">
+                    <div id="detector" class="vague">
+                        <div class="pitch"><span id="pitch">--</span>Hz</div>
+                        <div class="note"><span id="note">--</span></div>   
+                        <canvas id="output"></canvas>
+                        <div id="detune"><span id="detune_amt">--</span><span id="flat">cents &#9837;</span><span id="sharp">cents &#9839;</span></div>
+                    </div>
+
+                    <div id="displayBox" >  
+                        <!-- <div class="note"><span id="note">--</span></div>   -->
+                        <div id="display">
+                            <div class="visButtons">
+                                <div style='font-size: 12px;'>Visual format: </div>
+                                <button onclick="changeVis('random')" class="button-sm">Random</button>
+                                <button onclick="changeVis('linear')" class="button-sm">Linear</button>
+                                <button onclick="changeVis('circular')" class="button-sm">Circular</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="buttonContainer">
+                    <!-- <button onclick="this.innerText = togglePlayback()">use demo audio</button> -->
+                    <button onclick="toggleLiveInput()">Start live input</button>
+                    <!-- <button onclick="toggleOscillator()">Start oscillator</button> -->
+                    <button onclick="stopLiveInput()">Stop</button>
+                    <button onclick="updateVis(0)">Reset Visual</button>
+                    <br>
+                </div>
+            </div>
+            <!-- <div class="visButtons">
+                <div>Visual format: </div>
+                <button onclick="changeVis('random')" class="button-sm">Random</button>
+                <button onclick="changeVis('linear')" class="button-sm">Linear</button>
+                <button onclick="changeVis('circular')" class="button-sm">Circular</button>
+            </div> -->
+
+            <div class='keyboard-container'>
+                <div id="arrow-lft">
+                    <!-- <a class="previous round" onclick="shiftPiano(-1)">&#8249;</a> -->
+                    <div class="triangle-left" onclick="shiftPiano(-1)"></div>
+                    <div style="width: 5em; text-align: left; margin: 5px;">Swipe right or click to move down an octave</div> 
+                </div>
+                <div id="keyboard"></div>
+                
+                <div id="arrow-rt">
+                    <!-- <a  class="next round" onclick="shiftPiano(1)" style="width: 5em; text-align: center;"><b>&#8250; </b><br> Swipe right or click to move up an octave</a> -->
+                    <div style="width: 5em; text-align: right; margin: 5px;">Swipe left or click to move up an octave</div> 
+                    <div class="triangle-right" onclick="shiftPiano(1)"></div>
+                </div>
+                
+
+            </div>
+
+            <!-- <div> -->
+                <br>
+                <a href="https://github.com/cwilso/pitchdetect">Pitch detection algorithm on GitHub</a>
+                <a href="https://github.com/keithwhor/audiosynth">Audio Synthesizer on GitHub</a> 
+            <!-- </div> -->
+        </div>
+
+        <script type="text/javascript">
+
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-35593052-1']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+
+            var width = 400,
+                height = 400;
+            var svg = d3.select("#display")
+                .append("svg")
+                    .attr("width", width)
+                    .attr("height", height);
+
+
+
+            playKeyboard();
+
+
+            
+		</script>
+	</body>
+</html>
