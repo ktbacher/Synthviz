@@ -13,4 +13,4 @@ I used Joe Liang's keyboard implementation in 'playKeyboard.js' as starter code 
 
 I used Keith Horwood's 'audiosynth.js' as is to generate sound.
 
-I used Chris Wilson's 'pitchdetect.js' with some modifications. 
+I used Chris Wilson's 'pitchdetect.js' to record audio and detect pitch, with some modifications. 
